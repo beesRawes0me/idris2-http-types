@@ -9,7 +9,6 @@ import HTTP.Status
 import JSON.Simple
 import IO.Async.Logging
 import Text.ILex
-import Data.Finite
 import Derive.Prelude
 import Derive.Finite
 
@@ -18,6 +17,13 @@ import Derive.Finite
 
 public export
 data HTTPlang = English | German
+
+%runElab derive "HTTPlang" [Show,Eq,Ord, Finite]
+
+export
+Interpolation HTTPlang where
+  interpolate English = "English"
+  interpolate German  = "Deutsch"
 
 public export
 interface HTTPLocal where
@@ -38,16 +44,6 @@ interface HTTPLocal where
   prettyDecodeErr        : DecodeErr -> String
   prettyRequestErr       : RequestErr -> String
   unsignedInteger        : String
-  localizedLang          : HTTPlang -> String
-
-
-
-%runElab derive "HTTPlang" [Show,Eq,Ord, Finite]
-
-parameters {auto loc : HTTPLocal}
-  export %inline
-  Interpolation HTTPlang where
-    interpolate = localizedLang
 
 --------------------------------------------------------------------------------
 -- Utilities
