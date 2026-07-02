@@ -10,32 +10,16 @@ import JSON.Simple
 import IO.Async.Logging
 import Text.ILex
 import Data.Finite
+import Derive.Prelude
+import Derive.Finite
 
 %default total
+%language ElabReflection
 
 public export
 data HTTPlang = English | German
 
-export
-Show HTTPlang where
-  show English = "english"
-  show German  = "german"
-
-export
-Eq HTTPlang where
-  (==) English English = True
-  (==) German German   = True
-  (==) _ _             = False
-
-export
-Ord HTTPlang where
-  compare English German = LT
-  compare German English = GT
-  compare _ _            = EQ
-
-export
-Finite HTTPlang where
-  values = [English, German]
+%runElab derive "HTTPlang" [Show,Eq,Ord, Finite]
 
 export
 Interpolation HTTPlang where
