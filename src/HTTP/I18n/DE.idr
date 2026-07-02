@@ -47,4 +47,6 @@ export
   prettyDecodeErr (ContentErr t d) = "Ungültig \{t}"
   prettyDecodeErr (Msg msg) = msg
 
+  localizedLang English = "Englisch"
+  localizedLang German = "Deutsch"
 

@@ -39,3 +39,6 @@ export
   prettyDecodeErr (ReadErr t s d) = "invalid \{t}\{valueString s}"
   prettyDecodeErr (ContentErr t d) = "invalid \{t}"
   prettyDecodeErr (Msg msg) = msg
+
+  localizedLang English = "English"
+  localizedLang German = "Deutsch"

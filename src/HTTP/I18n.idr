@@ -19,12 +19,6 @@ import Derive.Finite
 public export
 data HTTPlang = English | German
 
-%runElab derive "HTTPlang" [Show,Eq,Ord, Finite]
-
-export
-Interpolation HTTPlang where
-  interpolate = show
-
 public export
 interface HTTPLocal where
   endOfURIPath           : String
@@ -44,7 +38,16 @@ interface HTTPLocal where
   prettyDecodeErr        : DecodeErr -> String
   prettyRequestErr       : RequestErr -> String
   unsignedInteger        : String
+  localizedLang          : HTTPlang -> String
 
+
+
+%runElab derive "HTTPlang" [Show,Eq,Ord, Finite]
+
+parameters {auto loc : HTTPLocal}
+  export %inline
+  Interpolation HTTPlang where
+    interpolate = localizedLang
 
 --------------------------------------------------------------------------------
 -- Utilities
